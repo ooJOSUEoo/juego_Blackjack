@@ -38,4 +38,20 @@ const pedirCarta = () => {
         throw new Error('No hay cartas en el mazo');
     }
 }
-pedirCarta();
+//pedirCarta();
+
+const valorCarta = (carta) => {
+    const valor = carta.substring(0, carta.length - 1);
+    return (isNaN(valor)) ?
+            (valor == 'A') ? 11 : 10 
+            : valor*1;
+    // console.log(valor);
+    // if(isNaN(valor)){
+    //     puntos = (valor === 'J' || valor === 'Q' || valor === 'K') ? 10 : 11;
+    // } else{
+    //     console.log('es numero');
+    //     puntos = parseInt(valor);
+    // }
+}
+const valor = valorCarta(pedirCarta());
+console.log(valor);
