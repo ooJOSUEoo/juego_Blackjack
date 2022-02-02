@@ -9,6 +9,16 @@ let deck = [];
 const tipos = ['C', 'D', 'H', 'S'];
 const especiales = ['J', 'Q', 'K', 'A'];
 
+let puntosJugador = 0,
+    puntosComputadora = 0;
+
+//referencia del html
+const btnPedir = document.querySelector('#btnPedir');
+const btnDetener = document.querySelector('#btnDetener');
+const btnNuevo = document.querySelector('#btnNuevo');
+
+const puntosHtml = document.querySelectorAll('small');
+
 //crear el mazo
 const crearDeck = () => {
 
@@ -53,5 +63,11 @@ const valorCarta = (carta) => {
     //     puntos = parseInt(valor);
     // }
 }
-const valor = valorCarta(pedirCarta());
-console.log(valor);
+
+//eventos
+btnPedir.addEventListener('click', () => {
+    const carta = pedirCarta();
+    puntosJugador += valorCarta(carta);
+    puntosHtml[0].innerHTML = puntosJugador;
+    console.log(puntosJugador);
+})
