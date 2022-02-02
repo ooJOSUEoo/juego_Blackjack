@@ -17,6 +17,7 @@ const btnPedir = document.querySelector('#btnPedir');
 const btnDetener = document.querySelector('#btnDetener');
 const btnNuevo = document.querySelector('#btnNuevo');
 
+const divCartasJuagdor = document.querySelector('#jugador-cartas');
 const puntosHtml = document.querySelectorAll('small');
 
 //crear el mazo
@@ -70,4 +71,21 @@ btnPedir.addEventListener('click', () => {
     puntosJugador += valorCarta(carta);
     puntosHtml[0].innerHTML = puntosJugador;
     console.log(puntosJugador);
+
+    //<img class="carta" src="assets/cartas/2H.png" alt="">
+    const imgCarta = document.createElement('img');
+    imgCarta.src = `assets/cartas/${carta}.png`;
+    imgCarta.classList.add('carta')
+    divCartasJuagdor.append(imgCarta);
+
+    if(puntosJugador > 21){
+        console.log('Perdiste');
+        btnPedir.disabled = true;
+        btnDetener.disabled = true;
+    }else if (puntosJugador == 21){
+        console.log('Ganaste');
+        btnPedir.disabled = true;
+        btnDetener.disabled = true;
+    }
+
 })
