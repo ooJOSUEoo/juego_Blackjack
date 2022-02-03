@@ -1,4 +1,4 @@
-(() => {
+const miModulo = (() => {
     'use strict';
 
     let deck = [];
@@ -18,9 +18,16 @@
     // inicializar el juego
     const inizializarJuego = (numJugadores = 2) => {
         deck = crearDeck();
+        puntosJugadores = [];
         for (let i = 0; i < numJugadores; i++) {
             puntosJugadores.push(0);
         }
+        puntosHtml.forEach(elem => elem.innerText = 0);
+
+        divCartasJugadores.forEach(elem => elem.innerHTML = '')
+
+        btnPedir.disabled = false;
+        btnDetener.disabled = false;
     }
 
     //crear el mazo
@@ -72,6 +79,23 @@
             divCartasJugadores[turno].append(imgCarta);
     }
 
+    const determinarGanador = () =>{
+
+        const [puntosMinimos,puntosComputadora] = puntosJugadores;
+
+        setTimeout(() => {
+            if (puntosComputadora === puntosMinimos) {
+                alert('Nadie gana');
+            } else if (puntosMinimos > 21) {
+                alert('Computadora gana');
+            } else if (puntosComputadora > 21) {
+                alert('Jugador gana');
+            } else {
+                alert('Computadora gana')
+            }
+        }, 10)
+    }
+
     //turno de la computadora
     const turnoComputadora = (puntosMinimos) => {
         let puntosComputadora = 0;
@@ -91,17 +115,7 @@
             }
         } while ((puntosComputadora < puntosMinimos) && (puntosMinimos <= 21));
 
-        setTimeout(() => {
-            if (puntosComputadora === puntosMinimos) {
-                alert('Nadie gana');
-            } else if (puntosMinimos > 21) {
-                alert('Computadora gana');
-            } else if (puntosComputadora > 21) {
-                alert('Jugador gana');
-            } else {
-                alert('Computadora gana')
-            }
-        }, 10)
+        determinarGanador();
     }
 
     //eventos
@@ -132,21 +146,10 @@
     })
 
     btnNuevo.addEventListener('click', () => {
-        console.clear();
         inizializarJuego();
-        // deck = [];
-        // deck = crearDeck();
-        // puntosJugador = 0;
-        // puntosComputadora = 0;
-
-        // divCartasJuagdor.innerHTML = '';
-        // divCartasComputadora.innerHTML = '';
-        
-        // puntosHtml[0].innerHTML = puntosJugador;
-        // puntosHtml[1].innerHTML = puntosComputadora;
-
-        // btnPedir.disabled = false;
-        // btnDetener.disabled = false;
     })
 
+    return{
+        nuevoJuego: inizializarJuego
+    };
 })();
